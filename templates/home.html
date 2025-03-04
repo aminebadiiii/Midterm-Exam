@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - ConcordiaBook{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Welcome Section -->
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1>Welcome to ConcordiaBook</h1>
+                <p class="lead">
+                    A platform for Concordia University students to trade textbooks with ease.
+                </p>
+                <a href="{% url 'add_textbook' %}" class="btn btn-primary btn-lg">Add a Textbook</a>
+                <a href="{% url 'my_textbooks' %}" class="btn btn-secondary btn-lg ms-2">My Textbooks</a>
+            </div>
+        </div>
+
+        <!-- Popular Courses Section -->
+        {% if course_codes %}
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <h3 class="text-center mb-4">Popular Courses</h3>
+                    <ul class="list-group">
+                        {% for course_code in course_codes %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ course_code }}
+                                <a href="{% url 'textbook_list_by_course' course_code=course_code %}" class="btn btn-sm btn-primary">
+                                    View Textbooks
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8 text-center">
+                    <p>No textbooks have been added yet. Be the first to contribute!</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
